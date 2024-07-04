@@ -36,9 +36,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.ui.graphics.Shape
@@ -129,7 +131,10 @@ fun MainContent(users: List<User>, invoiceInfo: List<Invoice>, headers: List<Str
 
         item { Spacer(modifier = Modifier.height(16.dp)) }
 
-        item { BillSummary() }
+//        item { BillSummary() }
+
+        item {  InvoiceSummary() }
+
 
         item { Spacer(modifier = Modifier.height(16.dp)) }
 
@@ -221,7 +226,59 @@ fun BillSummary(modifier: Modifier = Modifier, billAmount: Float = 61.97f, taxRa
     }
 }
 
+@Composable
+fun InvoiceSummary() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.End
+    ) {
+        Row(
+            modifier = Modifier.padding(bottom = 4.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            BasicText("Sub Total")
+            Spacer(modifier = Modifier.width(16.dp))
+            BasicText("61.97")
+        }
+        Row(
+            modifier = Modifier.padding(bottom = 4.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            BasicText("Tax Rate")
+            Spacer(modifier = Modifier.width(16.dp))
+            BasicText("5.00%")
+        }
+        Row(
+            modifier = Modifier.padding(vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            BasicText("Total", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold))
+            Spacer(modifier = Modifier.width(16.dp))
+            BasicText("$65.06", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold))
+        }
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            color = Color(0xFFD3F7F7) // Light green background
+        ) {
+            Row(
+                modifier = Modifier.padding(8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                BasicText("Balance Due", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold))
+                Spacer(modifier = Modifier.width(16.dp))
+                BasicText("$65.06", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold))
+            }
+        }
+    }
+}
 
+@Preview(showBackground = true)
+@Composable
+fun InvoiceSummaryPreview() {
+    InvoiceSummary()
+}
 
 
 
